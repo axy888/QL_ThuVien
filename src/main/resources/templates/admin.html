@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>Admin</title>
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+    <div class="menu_admin">
+
+      <ul>
+        <li>
+          <a class="logo" th:href="@{/admin}"><img th:src="@{/imgs/logo.jpg}" alt=""></a>
+        </li>
+        <li>
+            <a th:href="@{/QLSach}" target="content-frame"><img th:src="@{/imgs/icons8-book-64.png}" alt="">Sách</a>
+        </li>
+        <li>
+          <a th:href="@{/QLPhieuMuon}" target="content-frame"><img th:src="@{/imgs/icons8-check-book-64.png}" alt="">Mượn trả</a>
+        </li>
+        <li>
+          <a th:href="@{/QLPhieuNhap}" target="content-frame"><img th:src="@{/imgs/icons8-list-63.png}" alt="">Phiếu nhập</a>
+        </li>
+        <li>
+          <a th:href="@{/QLSach}" target="content-frame"><img th:src="@{/imgs/icons8-factory-64.png}" alt="">Nhà cung cấp</a>
+        </li>
+        <li>
+          <a th:href="@{/QLSach}" target="content-frame"><img th:src="@{/imgs/icons8-list-64.png}" alt="">Thể loại</a>
+        </li>
+        <li>
+          <a th:href="@{/QLSach}" target="content-frame"><img th:src="@{/imgs/icons8-user-50.png}" alt="">Tài khoản</a>
+        </li>
+        <li>
+          <a th:href="@{/QLPhieuPhat}" target="content-frame"><img th:src="@{/imgs/icons8-event-declined-64.png}" alt="">Vi Phạm</a>
+        </li>
+        <li>
+          <span style="color: white;margin-left: 20px;font-size: 16px;">Xin chào <span class="username" th:text="${session.username}"></span> !</span>
+          <a th:href="@{/logout}" ><img th:src="@{/imgs/icons8-open-pane-50.png}" alt="">Đăng xuất</a>
+        </li>
+
+
+      </ul>
+      <main class="main-content" th:fragment="main-content">
+        <iframe name="content-frame" src="" width="100%" height="100%">
+          Trình duyệt của bạn không hỗ trợ iframe.
+        </iframe>
+      </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa phiếu mượn</title>
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="addBook_container">
+  <h2>THÔNG TIN PHIẾU</h2>
+  <form th:object="${phieumuon}" th:action="@{/updatePm}" method="POST">
+    <div class="mb-3">
+      <label class="form-label">Mã phiếu mượn:</label>
+      <input type="text" class="form-control" th:field="*{ma_phieumuon}" readonly/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Mã tài khoản:</label>
+      <input type="text" class="form-control" th:field="*{ma_taikhoan}" readonly/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Mã sách:</label>
+      <input type="text" class="form-control" th:field="*{ma_sach}" readonly/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Tên nhân viên:</label>
+      <input type="text" class="form-control" th:field="*{ten_nv}" readonly/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Ngày mượn:</label>
+      <input type="date" class="form-control" th:field="*{ngay_muon}" readonly/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Ngày hạn:</label>
+      <input type="date" class="form-control" th:field="*{ngay_han}" readonly/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Ngày trả:</label>
+      <input type="date" class="form-control" th:field="*{ngay_tra}" required/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Trạng thái:</label>
+      <select class="form-control" th:field="*{trang_thai}" required>
+        <option th:value="3">Đã trả</option>
+        <option th:value="4">Trả trễ hạn</option>
+        <option th:value="5">Làm hỏng sách ít</option>
+        <option th:value="6">Làm hỏng sách nhiều</option>
+        <option th:value="7">Làm mất sách</option>
+      </select>
+    </div>
+    <div style="width: 100%; display: inline-flex; flex-direction: row-reverse; gap: 15px;">
+      <input type="submit" class="btn btn-primary" value="Cập nhật" onclick="return confirm('Vui lòng xác nhận thao tác trước khi cập nhật.')"/>
+      <input type="button" class="btn btn-secondary" value="Hủy" onclick="window.location.href='/QLSach'"/>
+    </div>
+  </form>
+</div>
+</body>
+</html>

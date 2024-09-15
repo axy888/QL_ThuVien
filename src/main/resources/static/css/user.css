@@ -1,0 +1,467 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.main-content {
+    flex-grow: 1; /* Cho phép mở rộng */
+    overflow: hidden;
+}
+
+iframe {
+    border:none;
+    height: 585px;
+}
+
+.menu_user
+{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.menu_user ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.menu_user li {
+    float: left;
+    height: 50px;
+}
+
+.menu_user ul li a {
+    display: flex;
+    color: white;
+    height: inherit;
+    padding: 14px 16px;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.menu_user .logo
+{
+    padding: 0;
+}
+
+.menu_user .logo img
+{
+    width: 100px;
+    height: 50px;
+}
+
+li a:hover:not(.active) {
+    background-color: #4c781e;
+}
+
+.active {
+    background-color: #04AA6D;
+}
+
+li a:hover
+{
+    background-color: #0468aa;
+}
+
+/*đăng nhập đăng ký*/
+.bg-login
+{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFEFBA;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.content_login
+{
+    text-align: center;
+    width: 500px;
+    box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
+}
+
+.content_login h3
+{
+    margin-top: 0;
+    margin-bottom: 30px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: #59C173;
+    background: -webkit-linear-gradient(to right, #5D26C1, #a17fe0, #59C173);
+    background: linear-gradient(to right, #5D26C1, #a17fe0, #59C173);
+}
+
+.content_login input, .content_login label
+{
+    margin-left: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.content_login button
+{
+    width: 90px;
+    height: 35px;
+    margin: 10px 55px;
+    color: white;
+    border: 2px solid #5e5959;
+    background-color: #0468aa;
+    border-radius: 5px;
+}
+
+.content_login button:hover
+{
+    cursor: pointer;
+    background-color: #0e3957;
+}
+
+.content_login label
+{
+    display: inline-block;
+    width: 150px;
+}
+
+.content_login input
+{
+    width: 200px;
+}
+
+.content_signup
+{
+    text-align: center;
+    width: 500px;
+    box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
+}
+
+.content_signup h3
+{
+    margin-top: 0;
+    margin-bottom: 30px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: #59C173;
+    background: -webkit-linear-gradient(to right, #5D26C1, #a17fe0, #59C173);
+    background: linear-gradient(to right, #5D26C1, #a17fe0, #59C173);
+}
+
+.content_signup input, .content_signup label
+{
+    margin-left: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.content_signup button
+{
+    width: 90px;
+    height: 35px;
+    margin: 10px 55px;
+    color: white;
+    border: 2px solid #5e5959;
+    background-color: #0468aa;
+    border-radius: 5px;
+}
+
+.content_signup button:hover
+{
+    cursor: pointer;
+    background-color: #0e3957;
+}
+
+.content_signup label
+{
+    display: inline-block;
+    width: 200px;
+}
+
+.content_signup input
+{
+    width: 200px;
+}
+
+.error_signup
+{
+    position: absolute;
+    top: 55px;
+    left: 600px;
+    color: red;
+}
+
+.success_signup
+{
+    position: absolute;
+    top: 247px;
+    left: 600px;
+    color: rgb(0, 128, 0);
+}
+
+.error_login
+{
+    position: absolute;
+    top: 250px;
+    left: 585px;
+    color: red;
+}
+
+/*tìm kiếm sắp xếp*/
+.searchForm
+{
+    display: flex;
+    margin-top: 13px;
+}
+
+/*thông báo*/
+#notification {
+    display: none;
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: red;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 1000;
+    text-align: center;
+}
+
+/*trang mượn sách*/
+.muon_sach_view
+{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.menu_theloai
+{
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    width: 170px;
+}
+
+.menu_theloai div
+{
+    padding: 12px 12px;
+    border-bottom: 2px solid crimson;
+}
+
+.menu_theloai a
+{
+    font-weight: bold;
+    text-decoration: none;
+
+}
+
+.muon_sach_title
+{
+    border: 1px solid black;
+    text-align: center;
+    padding: 20px;
+    border-radius: 50px;
+    margin: 2% auto;
+    width: 50%;
+    color: white;
+    box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
+    background: #0f0c29;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+/*trang thông tin cá nhân*/
+.thongtincanhan_container
+{
+    max-width: 800px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid sienna;
+    border-radius: 15px;
+    background-color: rgb(255,255,255,0.7);
+
+}
+
+.thongtincanhan_container form
+{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.thongtincanhan_container .left_section
+{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.thongtincanhan_container .right_section
+{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.thongtincanhan_container img
+{
+    width: 300px;
+    height: 400px;
+}
+
+.thongtincanhan_container h2
+{
+    margin-bottom: 20px;
+    text-align: center;
+
+}
+
+.submit_section {
+    width: 100%;
+    text-align: center; /* Center the button */
+    margin-top: 20px; /* Add some space above the button */
+}
+
+.formChangePassword
+{
+    text-align: center;
+    align-items: center;
+    max-width: 800px;
+    margin-left: 275px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.formChangePassword h2
+{
+    margin-bottom: 20px;
+    text-align: center;
+
+}
+
+.formChangePassword label
+{
+    float: left;
+}
+
+.formChangePassword input
+{
+    margin-bottom: 20px;
+}
+
+.sach_view
+{
+    margin: 20px;
+    margin-left: 275px;
+}
+
+.sach_view h1
+{
+    max-width: 800px;
+    border: 1px solid black;
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom:2%;
+    margin-top:2%;
+    color: white;
+    box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
+    background: #ED4264;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFEDBC, #ED4264);
+    background: linear-gradient(to right, #FFEDBC, #ED4264);
+}
+
+.sach_view table
+{
+    max-width: 800px;
+    text-align: center;
+}
+
+/*tìm kiếm*/
+.searchContent
+{
+    display: flex;
+    justify-content: center;
+}
+
+.searchContent input
+{
+    margin-left: 20px;
+}
+
+.searchContent input[type="text"]
+{
+    border-radius: 40px;
+    width: 450px;
+
+}
+
+/*chi tiết sách*/
+.CTSach_container
+{
+    max-width: 800px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid sienna;
+    border-radius: 15px;
+    background-color: rgb(255,255,255,0.7);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.CTSach_container .left_section
+{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.CTSach_container .right_section
+{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.CTSach_container img
+{
+    width: 300px;
+    height: 500px;
+}
+
+.CTSach_container h2
+{
+    margin-bottom: 20px;
+    text-align: center;
+
+}

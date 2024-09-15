@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <title>Quản lý sách</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="sach_view">
+  <h1>QUẢN LÝ SÁCH</h1>
+
+  <p>Tìm kiếm sách:</p>
+  <form class="searchForm" th:action="@{/QLSach/searchBook}" method="post">
+
+    <select name="searchBy" id="searchBy">
+      <option th:value="all">Tất cả</option>
+      <option th:value="ma_sach">Mã sách</option>
+      <option th:value="ma_loai">Mã loại</option>
+      <option th:value="ma_ncc">Mã nhà cung cấp</option>
+      <option th:value="ten_sach">Tên sách</option>
+      <option th:value="tac_gia">Tác giả</option>
+      <option th:value="NXB">Nhà xuất bản</option>
+      <option th:value="so_luong">Số lượng</option>
+      <option th:value="gia">Giá</option>
+    </select>
+
+    <div>
+      <input type="text" placeholder="Tìm kiếm ở đây.." name="searchText" id="searchText">
+      Từ ngày: <input type="date" name="fromDate">
+      Đến ngày: <input type="date" name="toDate">
+      <input type="submit" value="Search">
+    </div>
+  </form>
+  <br>
+  <div class="btn-group">
+    <div class="customizedButton"><a href="/addBook">Thêm sách mới</a></div>
+  </div>
+  <table class="table table-bordered table-striped table-striped-custom">
+    <thead class="table-dark">
+    <tr>
+      <th>Mã sách</th>
+      <th>Mã loại</th>
+      <th>Mã nhà cung cấp</th>
+      <th>Tên sách
+        <a th:href="@{/QLSach/sort(sortField='ten_sach', sortDir=${sortField == 'ten_sach' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+          <img th:src="@{${sortField == 'ten_sach' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+        </a>
+      </th>
+      <th>Tác giả
+        <a th:href="@{/QLSach/sort(sortField='tac_gia', sortDir=${sortField == 'tac_gia' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+          <img th:src="@{${sortField == 'tac_gia' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+        </a>
+      </th>
+      <th>NXB</th>
+      <th>Ngày xuất bản
+        <a th:href="@{/QLSach/sort(sortField='ngay_xuat_ban', sortDir=${sortField == 'ngay_xuat_ban' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+          <img th:src="@{${sortField == 'ngay_xuat_ban' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+        </a>
+      </th>
+      <th>Số lượng
+        <a th:href="@{/QLSach/sort(sortField='so_luong', sortDir=${sortField == 'so_luong' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+          <img th:src="@{${sortField == 'so_luong' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+        </a>
+      </th>
+      <th>Giá
+        <a th:href="@{/QLSach/sort(sortField='gia', sortDir=${sortField == 'gia' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+          <img th:src="@{${sortField == 'gia' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+        </a>
+      </th>
+      <th>Hình</th>
+      <th>Chức năng</th>
+
+    </tr>
+    </thead>
+    <tr th:each ="row : ${data}">
+      <td th:utext="${row.ma_sach}">...</td>
+      <td th:utext="${row.ma_loai}">...</td>
+      <td th:utext="${row.ma_ncc}">...</td>
+      <td th:utext="${row.ten_sach}">...</td>
+      <td th:utext="${row.tac_gia}">...</td>
+      <td th:utext="${row.NXB}">...</td>
+      <td th:utext="${row.ngay_xuat_ban}">...</td>
+      <td th:utext="${row.so_luong}">...</td>
+      <td th:utext="${row.gia}">...</td>
+      <td>
+        <img th:src="@{'/imgs/' + ${row.hinh}}" style="width: 100px; height: 100px;">
+      </td>
+      <td>
+        <div class="btn-group d-flex justify-content-center">
+          <a class="btn btn-primary btn-sm"
+             th:href="'/QLSach/edit/'+ ${rowStat.index}">Sửa</a>
+        </div>
+      </td>
+
+    </tr>
+  </table>
+</div>
+
+
+</body>
+</html>

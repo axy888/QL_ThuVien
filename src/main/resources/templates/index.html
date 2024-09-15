@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trang chủ</title>
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="menu_user">
+    <ul>
+        <li><a class="logo" th:href="@{/}"><img th:src="@{/imgs/logo.jpg}" alt=""></a></li>
+        <li><a th:href="@{/QLMuonSach}" target="content-frame">Mượn sách</a></li>
+
+        <li th:if="${session.username}" style="float:right">
+            <a th:href="@{/logout}">Đăng xuất</a>
+        </li>
+        <li th:if="${session.username}" style="float:right">
+            <a th:href="@{/QLttcn}" target="content-frame">[[${session.username}]]</a>
+        </li>
+
+        <li th:unless="${session.username}" style="float:right">
+            <a th:href="@{/login}">Đăng nhập</a>
+        </li>
+    </ul>
+</div>
+
+<main class="main-content" th:fragment="main-content">
+    <iframe name="content-frame" src="" width="100%">
+        Trình duyệt của bạn không hỗ trợ iframe.
+    </iframe>
+</main>
+
+
+</body>
+</html>

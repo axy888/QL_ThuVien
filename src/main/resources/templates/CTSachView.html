@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chi tiết sách</title>
+  <link rel="stylesheet" th:href="@{/css/user.css}">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="CTSach_container">
+  <div class="left_section">
+    <img th:src="@{'/imgs/' + ${sach.hinh}}" />
+  </div>
+  <div class="right_section">
+<!--    <input type="hidden" class="form-control" th:text="${sach.ma_sach}" />-->
+    <label class="form-label">Thể loại:</label>
+    <input type="text" class="form-control" th:field="*{theloai.ten_loai}" readonly/>
+    <label class="form-label">Tên sách:</label>
+    <input type="email" class="form-control" th:field="*{sach.ten_sach}" readonly/>
+    <label class="form-label">Tác giả:</label>
+    <input type="tel" class="form-control" th:field="*{sach.tac_gia}" readonly/>
+    <label class="form-label">Mô tả:</label>
+    <textarea class="form-control" th:field="*{sach.mo_ta}" readonly></textarea>
+    <label class="form-label">Nhà xuất bản:</label>
+    <input type="text" class="form-control" th:field="*{sach.NXB}" readonly/>
+    <label class="form-label">Số lượng:</label>
+    <input type="number" class="form-control" th:field="*{sach.so_luong}" readonly/>
+    <label class="form-label">Ngày xuất bản:</label>
+    <input type="date" class="form-control" th:field="*{sach.ngay_xuat_ban}" readonly/>
+  </div>
+  <div class="submit_section">
+    <a class="btn btn-success btn-sm" style="width: 100px;margin-right: 100px;"
+       th:if="${session.username}"
+       th:href="'/QLMuonSach/borrow/'+ ${sach.ma_sach}">Mượn</a>
+    <a class="btn btn-success btn-sm"
+       style="width: 100px; background-color: #5e5959;color: white;"
+       th:href="@{/QLMuonSach}">Quay lại</a>
+  </div>
+</div>
+</body>
+</html>

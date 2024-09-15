@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông tin cá nhân</title>
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="notification"></div>
+<div class="thongtincanhan_container">
+    <h2>THÔNG TIN CÁ NHÂN</h2>
+    <form th:object="${data}" th:action="@{/saveUser}" method="POST">
+        <div class="left_section">
+            <img th:src="@{'/imgs/' + *{avatar}}" />
+            <input type="file" class="form-control"  th:field="*{avatar}" accept="image/*"/>
+        </div>
+
+        <div class="right_section">
+            <input type="hidden" class="form-control" th:field="*{ma_taikhoan}" required/>
+            <label class="form-label">Tên tài khoản:</label>
+            <input type="text" class="form-control" th:field="*{hoten}" required/>
+            <label class="form-label">Email:</label>
+            <input type="email" class="form-control" th:field="*{email}" required/>
+            <label class="form-label">Số điện thoại:</label>
+            <input type="tel" class="form-control" th:field="*{sdt}" required/>
+            <label class="form-label">Địa chỉ:</label>
+            <input type="text" class="form-control" th:field="*{diachi}" required/>
+            <label class="form-label">Ngày tạo:</label>
+            <input type="date" class="form-control" th:field="*{ngay_tao}" readonly/>
+        </div>
+
+        <div class="submit_section">
+            <input type="submit" class="btn btn-primary" value="Cập nhật" onclick="return confirm('Vui lòng xác nhận thao tác trước khi cập nhật.')"/>
+        </div>
+
+    </form>
+</div>
+
+
+<form th:action="@{/ChangePassword}" method="POST" class="formChangePassword">
+    <h2>ĐỔI MẬT KHẨU</h2>
+    <label class="form-label">Mật khẩu cũ:</label>
+    <input type="password" class="form-control"  name="oldpassword" id="matkhau"/>
+    <label class="form-label">Mật khẩu mới:</label>
+    <input type="password" class="form-control" name="newpassword" id="newpassword"/>
+    <label class="form-label">Xác nhận mật khẩu mới:</label>
+    <input type="password" class="form-control" name="confirmpassword" id="confirmpassword"/>
+    <input type="submit" class="btn btn-primary" value="Cập nhật" onclick="return confirm('Vui lòng xác nhận thao tác trước khi cập nhật.')"/>
+</form>
+
+
+<div class="sach_view">
+    <h1>THÔNG TIN MƯỢN TRẢ SÁCH</h1>
+<table class="table table-bordered table-striped table-striped-custom">
+    <thead class="table-dark">
+    <tr>
+        <th>Mã phiếu mượn</th>
+        <th>Mã sách</th>
+        <th>Tên nhân viên</th>
+        <th>Ngày mượn
+            <a th:href="@{/QLttcn/sort(sortField='ngay_muon', sortDir=${sortField == 'ngay_muon' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+                <img th:src="@{${sortField == 'ngay_muon' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+            </a>
+        </th>
+        <th>Ngày trả
+            <a th:href="@{/QLttcn/sort(sortField='ngay_tra', sortDir=${sortField == 'ngay_tra' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+                <img th:src="@{${sortField == 'ngay_tra' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+            </a>
+        </th>
+        <th>Ngày hạn
+            <a th:href="@{/QLttcn/sort(sortField='ngay_han', sortDir=${sortField == 'ngay_han' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+                <img th:src="@{${sortField == 'ngay_han' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+            </a>
+        </th>
+        <th>Trạng thái</th>
+        <th>Chức năng</th>
+
+    </tr>
+    </thead>
+    <tr th:each ="row : ${dataPm}">
+        <td th:utext="${row.ma_phieumuon}">...</td>
+        <td th:utext="${row.ma_sach}">...</td>
+        <td th:utext="${row.ten_nv}">...</td>
+        <td th:utext="${row.ngay_muon}">...</td>
+        <td th:utext="${row.ngay_tra}">...</td>
+        <td th:utext="${row.ngay_han}">...</td>
+        <td th:if="${row.trang_thai == 1}" th:utext="'Đang chờ xử lý'"></td>
+        <td th:if="${row.trang_thai == 2 || row.trang_thai==8}" th:utext="'Đang mượn'"></td>
+        <td th:if="${row.trang_thai == 3}" th:utext="'Đã trả'"></td>
+        <td th:if="${row.trang_thai == 4
+                        || row.trang_thai==5
+                        ||row.trang_thai==6
+                        || row.trang_thai==7}"
+            th:utext="'Vi phạm'"></td>
+        <td>
+            <div class="btn-group d-flex justify-content-center">
+                <a class="btn btn-primary btn-sm"
+                   th:if="${row.trang_thai == 2}"
+                   th:href="'/QLttcn/giahan/'+ ${row.ma_phieumuon}">Gia Hạn</a>
+            </div>
+        </td>
+
+    </tr>
+</table>
+</div>
+<script>
+
+    $(document).ready(function() {
+        var Message = "[[${message}]]".trim();
+        var type = "[[${type}]]".trim();
+
+        if (Message) {
+            showNotification(Message, type);
+        }
+    });
+
+    function showNotification(message,type) {
+        var notification = $('#notification');
+        if (type === 'error') {
+            notification.css('background-color', 'red');}
+        else
+        {
+            notification.css('background-color', '#4CAF50');
+        }
+        notification.text(message);
+        notification.fadeIn();
+        setTimeout(function() {
+            notification.fadeOut();
+        }, 2000);
+    }
+</script>
+</body>
+</html>

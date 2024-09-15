@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết phiếu nhập</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="notification"></div>
+
+<div class="sach_view">
+    <h1>CHI TIẾT PHIẾU NHẬP</h1>
+    <br>
+    <div class="btn-group">
+        <div class="customizedButton"><a th:href="'/addImportDetail/'+ ${id}">Thêm chi tiết phiếu</a></div>
+    </div>
+    <table class="table table-bordered table-striped table-striped-custom">
+        <thead class="table-dark">
+        <tr th:if="${trang_thai_hientai ==1}">
+            <th>Mã phiếu nhập</th>
+            <th>Tên sách</th>
+            <th>Số lượng
+                <a th:href="@{/QLPhieuNhap/sort(sortField='so_luong', sortDir=${sortField == 'so_luong' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+                    <img th:src="@{${sortField == 'so_luong' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+                </a>
+            </th>
+            <th>Đơn giá
+                <a th:href="@{/QLPhieuNhap/sort(sortField='don_gia', sortDir=${sortField == 'don_gia' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+                    <img th:src="@{${sortField == 'don_gia' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+                </a>
+            </th>
+            <th>Chức năng</th>
+
+        </tr>
+
+        <tr th:if="${trang_thai_hientai !=1}">
+            <th>Mã phiếu nhập</th>
+            <th>Tên sách</th>
+            <th>Số lượng
+                <a th:href="@{/QLPhieuNhap/sort(sortField='so_luong', sortDir=${sortField == 'so_luong' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+                    <img th:src="@{${sortField == 'so_luong' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+                </a>
+            </th>
+            <th>Đơn giá
+                <a th:href="@{/QLPhieuNhap/sort(sortField='don_gia', sortDir=${sortField == 'don_gia' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+                    <img th:src="@{${sortField == 'don_gia' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+                </a>
+            </th>
+        </tr>
+        </thead>
+        <tr th:if="${trang_thai_hientai ==1}"
+                th:each ="row : ${data}">
+            <td th:utext="${row.phieunhap.ma_phieunhap}">...</td>
+            <td th:utext="${row.sa.ten_sach}">...</td>
+            <td th:utext="${row.so_luong}">...</td>
+            <td th:utext="${row.don_gia}">...</td>
+
+            <td>
+                <div class="btn-group d-flex justify-content-center">
+                    <a class="btn btn-success btn-sm"
+                       th:href="'/QLPhieuNhap/edit/'+ ${row.phieunhap.ma_phieunhap}
+                        + '/' + ${row.sa.ma_sach}">Sửa</a>
+
+                    <a class="btn btn-danger btn-sm"
+                       th:href="'/QLPhieuNhap/delete/'+ ${row.phieunhap.ma_phieunhap}
+                        + '/' + ${row.sa.ma_sach}">Xóa</a>
+                </div>
+            </td>
+
+        </tr>
+
+        <tr th:if="${trang_thai_hientai!=1}"
+            th:each ="row : ${data}">
+            <td th:utext="${row.phieunhap.ma_phieunhap}">...</td>
+            <td th:utext="${row.sa.ten_sach}">...</td>
+            <td th:utext="${row.so_luong}">...</td>
+            <td th:utext="${row.don_gia}">...</td>
+        </tr>
+    </table>
+    <a class="btn btn-success btn-sm"
+       th:if="${trang_thai_hientai ==1}"
+       th:href="'/QLPhieuNhap/change_status/'+ ${ma_phieu_hientai}">Cập nhật trạng thái</a>
+</div>
+<script>
+
+    $(document).ready(function() {
+        var Message = "[[${message}]]".trim();
+        var type = "[[${type}]]".trim();
+
+        if (Message) {
+            showNotification(Message, type);
+        }
+    });
+
+    function showNotification(message, type) {
+        var notification = $('#notification');
+        if (type === 'error') {
+            notification.css('background-color', 'red');
+        } else {
+            notification.css('background-color', '#4CAF50');
+        }
+        notification.text(message);
+        notification.fadeIn();
+        setTimeout(function() {
+            notification.fadeOut();
+        }, 2000);
+    }
+</script>
+</body>
+</html>

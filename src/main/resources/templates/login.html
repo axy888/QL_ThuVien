@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng nhập</title>
+  <link rel="stylesheet" th:href="@{/css/user.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div id="notification"></div>
+<div class="bg-login">
+  <div class="content_login">
+    <h3>Đăng nhập</h3>
+<!--      <span class="error_login" th:text="${error_login}"></span>-->
+<!--      <p class="success_signup" th:text="${success_signup}"></p>-->
+      <form action="/checklogin" method="post" target="_top">
+              <label>Email</label>
+              <input type="text" name="taikhoan" id="taikhoan"><br>
+              <label>Password</label>
+              <input type="password" name="matkhau" id="matkhau"><br>
+              <button type="submit">Đăng nhập</button>
+              <button type="submit" formaction="/signup">Đăng ký</button>
+      </form>
+  </div>
+</div>
+</body>
+<script>
+    $(document).ready(function() {
+        var Message = "[[${message}]]".trim();
+        var type = "[[${type}]]".trim();
+
+        if (Message) {
+            showNotification(Message, type);
+        }
+    });
+
+    function showNotification(message,type) {
+        var notification = $('#notification');
+        if (type === 'error') {
+            notification.css('background-color', 'red');}
+        else
+        {
+            notification.css('background-color', '#4CAF50');
+        }
+        notification.text(message);
+        notification.fadeIn();
+        setTimeout(function() {
+            notification.fadeOut();
+        }, 2000);
+    }
+</script>
+</html>

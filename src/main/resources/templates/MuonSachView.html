@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mượn sách</title>
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="notification"></div>
+<div class="searchContent">
+  <form class="searchForm" th:action="@{/QLMuonSach/searchBook}" method="post">
+
+    <select name="searchBy" id="searchBy">
+      <option th:value="all">Tất cả</option>
+      <option th:value="ma_sach">Mã sách</option>
+      <option th:value="ma_loai">Mã loại</option>
+      <option th:value="ten_sach">Tên sách</option>
+      <option th:value="tac_gia">Tác giả</option>
+      <option th:value="NXB">Nhà xuất bản</option>
+      <option th:value="so_luong">Số lượng</option>
+    </select>
+
+    <div>
+      <input type="text" placeholder="Tìm kiếm ở đây.." name="searchText" id="searchText">
+      <input type="submit" value="Search">
+    </div>
+  </form>
+</div>
+<h2 class="muon_sach_title">CÁC QUYỂN SÁCH BẠN CÓ THỂ MƯỢN</h2>
+<div class="muon_sach_view">
+  <div class="menu_theloai">
+    <div>
+      <a th:text="'Tất cả'" th:href="'/QLMuonSach/searchByTheLoai/0'"></a>
+    </div>
+    <div th:each ="row : ${listTheLoai}">
+      <a th:text="${row.ten_loai}" th:href="'/QLMuonSach/searchByTheLoai/'+ ${row.ma_loai}"></a>
+    </div>
+  </div>
+
+
+  <table class="table table-bordered table-striped table-striped-custom">
+    <thead class="table-dark">
+    <tr>
+      <th>Mã sách</th>
+      <th>Mã loại</th>
+      <th>Tên sách
+        <a th:href="@{/QLMuonSach/sort(sortField='ten_sach', sortDir=${sortField == 'ten_sach' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+          <img th:src="@{${sortField == 'ten_sach' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+        </a>
+      </th>
+      <th>Tác giả
+        <a th:href="@{/QLMuonSach/sort(sortField='tac_gia', sortDir=${sortField == 'tac_gia' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+          <img th:src="@{${sortField == 'tac_gia' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+        </a>
+      </th>
+      <th>NXB</th>
+      <th>Ngày xuất bản
+        <a th:href="@{/QLMuonSach/sort(sortField='ngay_xuat_ban', sortDir=${sortField == 'ngay_xuat_ban' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+          <img th:src="@{${sortField == 'ngay_xuat_ban' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+        </a>
+      </th>
+      <th>Số lượng
+        <a th:href="@{/QLMuonSach/sort(sortField='so_luong', sortDir=${sortField == 'so_luong' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+          <img th:src="@{${sortField == 'so_luong' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+        </a>
+      </th>
+      <th>Hình</th>
+      <th>Thao tác</th>
+
+    </tr>
+    </thead>
+    <tr th:each ="row : ${data}">
+      <td th:utext="${row.ma_sach}">...</td>
+      <td th:utext="${row.ma_loai}">...</td>
+      <td th:utext="${row.ten_sach}">...</td>
+      <td th:utext="${row.tac_gia}">...</td>
+      <td th:utext="${row.NXB}">...</td>
+      <td th:utext="${row.ngay_xuat_ban}">...</td>
+      <td th:utext="${row.so_luong}">...</td>
+      <td>
+        <img th:src="@{'/imgs/' + ${row.hinh}}" style="width: 100px; height: 100px;">
+      </td>
+      <td>
+
+        <a class="btn btn-success btn-sm" style="width: 100px;"
+           th:if="${session.username}"
+           th:href="'/QLMuonSach/borrow/'+ ${row.ma_sach}">Mượn</a>
+        <!-- Nếu chưa đăng nhập -->
+        <a class="btn btn-success btn-sm" style="width: 100px;"
+           th:unless="${session.username}"
+           href="javascript:void(0);"
+           onclick="showNotification('Vui lòng đăng nhập để mượn sách', 'error')">Mượn</a>
+        <br><br>
+
+        <a class="btn btn-info btn-sm" style="width: 100px;"
+           th:href="'/QLCTSach/'+ ${row.ma_sach}">Xem Chi Tiết</a>
+      </td>
+
+    </tr>
+  </table>
+</div>
+</body>
+<script>
+
+  $(document).ready(function() {
+    var Message = "[[${message}]]".trim();
+    var type = "[[${type}]]".trim();
+
+    if (Message) {
+      showNotification(Message, type);
+    }
+  });
+
+  function showNotification(message, type) {
+    var notification = $('#notification');
+    if (type === 'error') {
+      notification.css('background-color', 'red');
+    } else {
+      notification.css('background-color', '#4CAF50');
+    }
+    notification.text(message);
+    notification.fadeIn();
+    setTimeout(function() {
+      notification.fadeOut();
+    }, 2000);
+  }
+</script>
+
+</html>

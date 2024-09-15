@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div id="notification"></div>
+<div class="bg-login">
+    <div class="content_signup">
+        <h3>Đăng ký</h3>
+        <form action="/checksignup" method="post" target="_top">
+            <label for="taikhoan">Email</label>
+            <input type="email" name="taikhoan" id="taikhoan">
+<!--            <span class="error_signup" th:text="${error_signup}"></span>-->
+
+
+            <label for="matkhau">Mật khẩu</label>
+            <input type="password" name="matkhau" id="matkhau"><br>
+            <label for="nhaplaimatkhau">Nhập lại mật khẩu</label>
+            <input type="password" name="nhaplaimatkhau" id="nhaplaimatkhau"><br>
+            <label for="name">Họ và tên</label>
+            <input type="text" name="name" id="name"><br>
+            <label for="sdt">Số điện thoại</label>
+            <input type="tel" name="sdt" id="sdt"><br>
+            <label for="diachi">Địa chỉ</label>
+            <input type="text" name="diachi" id="diachi"><br>
+            <label>Ảnh đại diện:</label>
+            <input type="file" name="hinh" id="hinh" accept="image/*" required/>
+            <button type="submit">Đăng ký</button>
+            <button type="submit" formaction="/login">Đăng nhập</button>
+        </form>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function() {
+        var Message = "[[${message}]]".trim();
+        var type = "[[${type}]]".trim();
+
+        if (Message) {
+            showNotification(Message, type);
+        }
+    });
+
+    function showNotification(message,type) {
+        var notification = $('#notification');
+        if (type === 'error') {
+            notification.css('background-color', 'red');}
+        else
+        {
+            notification.css('background-color', '#4CAF50');
+        }
+        notification.text(message);
+        notification.fadeIn();
+        setTimeout(function() {
+            notification.fadeOut();
+        }, 2000);
+    }
+</script>
+</body>
+</html>

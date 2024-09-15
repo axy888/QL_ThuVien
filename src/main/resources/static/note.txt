@@ -1,0 +1,19 @@
+//các trạng thái phiếu mượn
+1.đang chờ xử lý
+2.đang mượn
+3.đã trả
+4.trả trễ hạn(2000đ/ngày)
+5.làm hỏng sách ít(10% tiền sách)
+6.làm hỏng sách nhiều(50% tiền sách)
+7.làm mất sách(100% tiền sách)
+8.đã gia hạn
+//hiển thị trên màn hình
+1.đang chờ xử lý
+2.đang mượn
+3.đã trả
+8.đã gia hạn
+4,5,6,7.vi phạm
+
+//các trạng thái phiếu phạt
+1.chưa xử lý
+2.đã xử lý

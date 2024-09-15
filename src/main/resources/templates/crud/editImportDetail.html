@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa chi tiết phiếu nhập</title>
+  <link rel="stylesheet" th:href="@{../css/admin.css}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="addBook_container">
+  <h2>THÔNG TIN PHIẾU</h2>
+  <form th:object="${ct_phieunhap}" th:action="@{/updateImportDetail}" method="POST">
+    <input type="hidden" name="ma_phieunhap" th:value="${ct_phieunhap.ma_phieunhap}" />
+
+    <!-- Thêm trường ẩn cho mã sách -->
+    <input type="hidden" name="ma_sach" th:value="${ct_phieunhap.sa.ma_sach}" />
+    <div class="mb-3">
+      <label class="form-label">Mã phiếu:</label>
+      <input type="number" class="form-control" th:field="*{ma_phieunhap}" readonly/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Mã sách:</label>
+      <input type="number" class="form-control" th:field="*{sa.ma_sach}" readonly/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Số lượng:</label>
+      <input type="number" class="form-control" th:field="*{so_luong}" required/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Đơn giá:</label>
+      <input type="number" class="form-control" th:field="*{don_gia}" required/>
+    </div>
+    <div style="width: 100%; display: inline-flex; flex-direction: row-reverse; gap: 15px;">
+      <input type="submit" class="btn btn-primary" value="Cập nhật" onclick="return confirm('Vui lòng xác nhận thao tác trước khi cập nhật.')"/>
+      <a class="btn btn-secondary"
+         th:href="@{'/QLPhieuNhap/detail/' + ${ct_phieunhap.phieunhap.ma_phieunhap}}">Hủy</a>
+    </div>
+  </form>
+</div>
+</body>
+</html>
