@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <title>Quản lý nhà cung cấp</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="notification"></div>
+<div class="sach_view">
+    <h1>QUẢN LÝ NHÀ CUNG CẤP</h1>
+
+    <p>Tìm kiếm nhà cung cấp:</p>
+    <form class="searchForm" th:action="@{/QLNcc/searchSupplier}" method="post">
+
+        <select name="searchBy" id="searchBy">
+            <option th:value="all">Tất cả</option>
+            <option th:value="ma_ncc">Mã nhà cung cấp</option>
+            <option th:value="ten_ncc">Tên nhà cung cấp</option>
+            <option th:value="diachi">Địa chỉ</option>
+            <option th:value="email">Email</option>
+            <option th:value="sdt">SĐT</option>
+        </select>
+        <div>
+            <input type="text" placeholder="Tìm kiếm ở đây.." name="searchText" id="searchText">
+            <input type="submit" value="Search">
+        </div>
+    </form>
+
+    <br>
+    <div class="btn-group">
+        <div class="customizedButton"><a href="/addSupplier">Thêm nhà cung cấp mới</a></div>
+    </div>
+    <table class="table table-bordered table-striped table-striped-custom">
+        <thead class="table-dark">
+        <tr>
+            <th>Mã nhà cung cấp</th>
+            <th>Tên nhà cung cấp
+                <a th:href="@{/QLSach/sort(sortField='ten_ncc', sortDir=${sortField == 'ten_ncc' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+                    <img th:src="@{${sortField == 'ten_ncc' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+                </a>
+            </th>
+            <th>Địa chỉ</th>
+            <th>Email</th>
+            <th>SĐT</th>
+            <th>Chức năng</th>
+
+        </tr>
+        </thead>
+        <tr th:each ="row : ${data}">
+            <td th:utext="${row.ma_ncc}">...</td>
+            <td th:utext="${row.ten_ncc}">...</td>
+            <td th:utext="${row.dia_chi}">...</td>
+            <td th:utext="${row.email}">...</td>
+            <td th:utext="${row.sdt}">...</td>
+            <td>
+                <div class="btn-group d-flex justify-content-center">
+                    <a class="btn btn-primary btn-sm"
+                       th:href="'/QLNcc/edit/'+ ${rowStat.index}">Sửa</a>
+                </div>
+            </td>
+
+        </tr>
+    </table>
+</div>
+<script>
+
+    $(document).ready(function() {
+        var Message = "[[${message}]]".trim();
+        var type = "[[${type}]]".trim();
+
+        if (Message) {
+            showNotification(Message, type);
+        }
+    });
+
+    function showNotification(message, type) {
+        var notification = $('#notification');
+        if (type === 'error') {
+            notification.css('background-color', 'red');
+        } else {
+            notification.css('background-color', '#4CAF50');
+        }
+        notification.text(message);
+        notification.fadeIn();
+        setTimeout(function() {
+            notification.fadeOut();
+        }, 2000);
+    }
+</script>
+</body>
+</html>
