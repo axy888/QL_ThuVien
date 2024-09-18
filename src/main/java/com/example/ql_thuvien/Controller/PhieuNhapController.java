@@ -2,16 +2,21 @@ package com.example.ql_thuvien.Controller;
 
 import com.example.ql_thuvien.Entity.*;
 import com.example.ql_thuvien.Repositories.*;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.Collator;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class PhieuNhapController {
@@ -250,4 +255,176 @@ public class PhieuNhapController {
         }
         return "PhieuNhapView";
     }
+
+    @GetMapping({"/QLPhieuNhap/sort"})
+    public String sortBooks(@RequestParam(defaultValue = "ngay_nhap") String sortField,
+                            @RequestParam(defaultValue = "asc") String sortDir, Model m) {
+
+        ArraylistPn = (ArrayList<PhieuNhap>)listPn;
+        listPn=sortList(ArraylistPn,sortField,sortDir);
+        m.addAttribute("data", listPn);
+        m.addAttribute("sortField",sortField);
+        m.addAttribute("sortDir",sortDir);
+        return "PhieuNhapView";
+
+    }
+
+    private ArrayList<PhieuNhap> sortList(ArrayList<PhieuNhap> ArraylistPn, String sortField, String sortDir) {
+        Comparator<PhieuNhap> comparator = null;
+        Collator collator = Collator.getInstance(new Locale("vi", "VN"));
+        collator.setStrength(Collator.TERTIARY);
+        switch (sortField) {
+            case "ngay_nhap":
+                comparator = Comparator.comparing(PhieuNhap::getNgay_nhap, Comparator.nullsFirst(collator));
+                break;
+            case "tong_tien":
+                comparator = Comparator.comparingInt(PhieuNhap::getTong_tien);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid sort field: " + sortField);
+        }
+        if (sortDir.equals("desc")) {
+            comparator = comparator.reversed();
+        }
+
+        // Sort the list
+        return ArraylistPn.stream()
+                .sorted(comparator)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    @GetMapping({"/QLPhieuNhap/sortCT"})
+    public String sortCTPN(@RequestParam(defaultValue = "so_luong") String sortField,
+                            @RequestParam(defaultValue = "asc") String sortDir,
+                           @RequestParam("ma_phieu_hientai") int id,
+                           Model m) {
+
+        int trang_thai=0;
+        Optional <PhieuNhap> optionalPn=phieunhapRe.findById((long)id);
+        if (optionalPn.isPresent())
+        {
+            PhieuNhap pn=optionalPn.get();
+            trang_thai=pn.getTrang_thai();
+        }
+        Arraylistct_Pn = (ArrayList<CT_PhieuNhap>)listCtPn;
+        ArrayList<CT_PhieuNhap> Arraylistct_Pn_found=new ArrayList();
+        for(CT_PhieuNhap ctpn:Arraylistct_Pn)
+            if(ctpn.getPhieunhap().getMa_phieunhap()==id)Arraylistct_Pn_found.add(ctpn);
+        listCtPn=sortListCTPN(Arraylistct_Pn_found,sortField,sortDir);
+        m.addAttribute("data", listCtPn);
+        m.addAttribute("sortField",sortField);
+        m.addAttribute("sortDir",sortDir);
+        m.addAttribute("ma_phieu_hientai",id);
+        m.addAttribute("trang_thai_hientai",trang_thai);
+        return "CTPNView";
+
+    }
+
+    private ArrayList<CT_PhieuNhap> sortListCTPN(ArrayList<CT_PhieuNhap> ArraylistCTPn, String sortField, String sortDir) {
+        Comparator<CT_PhieuNhap> comparator = null;
+        Collator collator = Collator.getInstance(new Locale("vi", "VN"));
+        collator.setStrength(Collator.TERTIARY);
+        switch (sortField) {
+            case "so_luong":
+                comparator = Comparator.comparingInt(CT_PhieuNhap::getSo_luong);
+                break;
+            case "don_gia":
+                comparator = Comparator.comparingInt(CT_PhieuNhap::getDon_gia);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid sort field: " + sortField);
+        }
+        if (sortDir.equals("desc")) {
+            comparator = comparator.reversed();
+        }
+
+        // Sort the list
+        return ArraylistCTPn.stream()
+                .sorted(comparator)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    @PostMapping("/QLPhieuNhap/searchPn")
+    public String searchPn(
+            @RequestParam("searchBy") String type,
+            @RequestParam("searchText") String searchText,
+            @RequestParam(value = "fromDate", required = false) String fromDateStr,
+            @RequestParam(value = "toDate", required = false) String toDateStr,
+            @RequestParam(value = "status", required = false) String status,
+            Model model) {
+
+        ArrayList<PhieuNhap> listFound = new ArrayList<>();
+        LocalDate fromDate = null;
+        LocalDate toDate = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        if (fromDateStr != null && !fromDateStr.isEmpty()) {
+            fromDate = LocalDate.parse(fromDateStr, formatter);
+        }
+        if (toDateStr != null && !toDateStr.isEmpty()) {
+            toDate = LocalDate.parse(toDateStr, formatter);
+        }
+        int statusInt=0;
+        if(status!=null && !status.isEmpty()) {
+            statusInt = Integer.parseInt(status);
+        }
+
+        for (PhieuNhap pn : listPn) {
+
+            boolean matches = false;
+            switch (type) {
+                case "all":
+                    matches = true;
+                    break;
+                case "ma_phieunhap": {
+                    int ma_phieunhap = Integer.parseInt(searchText);
+                    matches =pn.getMa_phieunhap() == ma_phieunhap;
+                    break;
+                }
+                case "ten_ncc":
+                {
+                    matches =pn.getNcc().getTen_ncc().toLowerCase().contains(searchText.toLowerCase());
+                    break;
+                }
+                case "ten_nv":
+                    matches =pn.getNguoi_nhap().toLowerCase().contains(searchText.toLowerCase());
+                    break;
+                case "ngay_nhap":
+                {
+                    if(pn.getNgay_nhap() != null && !pn.getNgay_nhap().isEmpty())
+                    {
+                        LocalDate ngay_muon = LocalDate.parse(pn.getNgay_nhap(), formatter);
+                        matches =(fromDate == null || !ngay_muon.isBefore(fromDate)) &&
+                                (toDate == null || !ngay_muon.isAfter(toDate));
+
+                        break;
+                    }
+
+                }
+
+            }
+
+            if (matches) {
+                if(statusInt!=0)
+                {
+                    if (statusInt == pn.getTrang_thai()) {
+                        listFound.add(pn);
+                    }
+                }
+                else listFound.add(pn);
+            }
+
+        }
+
+
+        // Return results
+        if (listFound.isEmpty()) {
+            model.addAttribute("message", "Không tìm thấy phiếu nào!");
+            model.addAttribute("type", "error");
+        } else {
+            model.addAttribute("data", listFound);
+        }
+
+        return "PhieuNhapView";
+    }
+
 }

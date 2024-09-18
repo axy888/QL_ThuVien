@@ -9,12 +9,14 @@
 </head>
 <body>
 <div id="notification"></div>
-
+<input type="hidden" class="form-control" th:value="${ma_phieu_hientai}" readonly/>
 <div class="sach_view">
     <h1>CHI TIẾT PHIẾU NHẬP</h1>
     <br>
     <div class="btn-group">
-        <div class="customizedButton"><a th:href="'/addImportDetail/'+ ${id}">Thêm chi tiết phiếu</a></div>
+        <div class="customizedButton"><a th:href="'/addImportDetail/'+ ${id}"
+                                         th:if="${trang_thai_hientai ==1}">
+            Thêm chi tiết phiếu</a></div>
     </div>
     <table class="table table-bordered table-striped table-striped-custom">
         <thead class="table-dark">
@@ -22,12 +24,12 @@
             <th>Mã phiếu nhập</th>
             <th>Tên sách</th>
             <th>Số lượng
-                <a th:href="@{/QLPhieuNhap/sort(sortField='so_luong', sortDir=${sortField == 'so_luong' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+                <a th:href="'/QLPhieuNhap/sortCT?sortField=so_luong&sortDir=' + (${sortField == 'so_luong' && sortDir == 'asc' ? 'desc' : 'asc'}) + '&ma_phieu_hientai=' + ${ma_phieu_hientai}">
                     <img th:src="@{${sortField == 'so_luong' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
                 </a>
             </th>
             <th>Đơn giá
-                <a th:href="@{/QLPhieuNhap/sort(sortField='don_gia', sortDir=${sortField == 'don_gia' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+                <a th:href="'/QLPhieuNhap/sortCT?sortField=don_gia&sortDir=' + (${sortField == 'don_gia' && sortDir == 'asc' ? 'desc' : 'asc'}) + '&ma_phieu_hientai=' + ${ma_phieu_hientai}">
                     <img th:src="@{${sortField == 'don_gia' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
                 </a>
             </th>
@@ -39,12 +41,12 @@
             <th>Mã phiếu nhập</th>
             <th>Tên sách</th>
             <th>Số lượng
-                <a th:href="@{/QLPhieuNhap/sort(sortField='so_luong', sortDir=${sortField == 'so_luong' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+                <a th:href="'/QLPhieuNhap/sortCT?sortField=so_luong&sortDir=' + (${sortField == 'so_luong' && sortDir == 'asc' ? 'desc' : 'asc'}) + '&ma_phieu_hientai=' + ${ma_phieu_hientai}">
                     <img th:src="@{${sortField == 'so_luong' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
                 </a>
             </th>
             <th>Đơn giá
-                <a th:href="@{/QLPhieuNhap/sort(sortField='don_gia', sortDir=${sortField == 'don_gia' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+                <a th:href="'/QLPhieuNhap/sortCT?sortField=don_gia&sortDir=' + (${sortField == 'don_gia' && sortDir == 'asc' ? 'desc' : 'asc'}) + '&ma_phieu_hientai=' + ${ma_phieu_hientai}">
                     <img th:src="@{${sortField == 'don_gia' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
                 </a>
             </th>

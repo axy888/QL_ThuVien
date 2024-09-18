@@ -17,12 +17,11 @@
 
         <select name="searchBy" id="searchBy">
             <option th:value="all">Tất cả</option>
-            <option th:value="ma_phieuphat">Mã phiếu phạt</option>
-            <option th:value="ma_phieumuon">Mã phiếu mượn</option>
-            <option th:value="ma_sach">Mã sách</option>
+            <option th:value="ma_phieunhap">Mã phiếu nhập</option>
+            <option th:value="ten_ncc">Tên nhà cung cấp</option>
             <option th:value="ten_nv">Tên nhân viên</option>
-            <option th:value="ngay_tao">Ngày tạo</option>
-            <option th:value="tien_phat">Tiền phạt</option>
+            <option th:value="ngay_nhap">Ngày nhập</option>
+            <option th:value="tong_tien">Tổng tiền</option>
         </select>
 
         <div>
@@ -30,7 +29,7 @@
             Từ ngày: <input type="date" name="fromDate">
             Đến ngày: <input type="date" name="toDate">
             <br>
-            <input type="radio" name="status" value="1">Đang chờ xử lý
+            <input type="radio" name="status" value="1">Chưa xử lý
             <input type="radio" name="status" value="2">Đã xử lý
 
         </div>
