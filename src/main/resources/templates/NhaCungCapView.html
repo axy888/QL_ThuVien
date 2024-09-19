@@ -38,7 +38,7 @@
         <tr>
             <th>Mã nhà cung cấp</th>
             <th>Tên nhà cung cấp
-                <a th:href="@{/QLSach/sort(sortField='ten_ncc', sortDir=${sortField == 'ten_ncc' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+                <a th:href="@{/QLNcc/sort(sortField='ten_ncc', sortDir=${sortField == 'ten_ncc' && sortDir == 'asc' ? 'desc' : 'asc'})}">
                     <img th:src="@{${sortField == 'ten_ncc' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
                 </a>
             </th>
