@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý thể loại</title>
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="notification"></div>
+<div class="sach_view">
+  <h1>QUẢN LÝ THỂ LOẠI</h1>
+
+  <p>Tìm kiếm thể loại:</p>
+  <form class="searchForm" th:action="@{/QLTheLoai/searchCategory}" method="post">
+
+    <select name="searchBy" id="searchBy">
+      <option th:value="all">Tất cả</option>
+      <option th:value="ma_loai">Mã loại</option>
+      <option th:value="ten_loai">Tên loại</option>
+    </select>
+    <div>
+      <input type="text" placeholder="Tìm kiếm ở đây.." name="searchText" id="searchText">
+      <input type="submit" value="Search">
+    </div>
+  </form>
+
+  <br>
+  <div class="btn-group">
+    <div class="customizedButton"><a href="/addCategory">Thêm thể loại mới</a></div>
+  </div>
+  <table class="table table-bordered table-striped table-striped-custom">
+    <thead class="table-dark">
+    <tr>
+      <th>Mã thể loai</th>
+      <th>Tên thể loại
+        <a th:href="@{/QLTheLoai/sort(sortField='ten_loai', sortDir=${sortField == 'ten_loai' && sortDir == 'asc' ? 'desc' : 'asc'})}">
+          <img th:src="@{${sortField == 'ten_loai' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
+        </a>
+      </th>
+      <th>Chức năng</th>
+
+    </tr>
+    </thead>
+    <tr th:each ="row : ${data}">
+      <td th:utext="${row.ma_loai}">...</td>
+      <td th:utext="${row.ten_loai}">...</td>
+      <td>
+        <div class="btn-group d-flex justify-content-center">
+          <a class="btn btn-primary btn-sm" style="width: 200px;"
+             th:href="'/QLTheLoai/edit/'+ ${rowStat.index}">Sửa</a>
+        </div>
+      </td>
+
+    </tr>
+  </table>
+</div>
+<script>
+
+  $(document).ready(function() {
+    var Message = "[[${message}]]".trim();
+    var type = "[[${type}]]".trim();
+
+    if (Message) {
+      showNotification(Message, type);
+    }
+  });
+
+  function showNotification(message, type) {
+    var notification = $('#notification');
+    if (type === 'error') {
+      notification.css('background-color', 'red');
+    } else {
+      notification.css('background-color', '#4CAF50');
+    }
+    notification.text(message);
+    notification.fadeIn();
+    setTimeout(function() {
+      notification.fadeOut();
+    }, 2000);
+  }
+</script>
+</body>
+</html>
