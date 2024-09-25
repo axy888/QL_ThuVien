@@ -15,26 +15,26 @@
         <li>
           <a class="logo" th:href="@{/admin}"><img th:src="@{/imgs/logo.jpg}" alt=""></a>
         </li>
-        <li>
-            <a th:href="@{/QLSach}" target="content-frame"><img th:src="@{/imgs/icons8-book-64.png}" alt="">Sách</a>
+        <li th:if="${session.maquyen == 1 || session.maquyen == 3}">
+            <a th:href="@{/QLSach}"  target="content-frame"><img th:src="@{/imgs/icons8-book-64.png}" alt="">Sách</a>
         </li>
-        <li>
-          <a th:href="@{/QLPhieuMuon}" target="content-frame"><img th:src="@{/imgs/icons8-check-book-64.png}" alt="">Mượn trả</a>
+        <li th:if="${session.maquyen== 1 || session.maquyen == 4}">
+          <a th:href="@{/QLPhieuMuon}"  target="content-frame"><img th:src="@{/imgs/icons8-check-book-64.png}" alt="">Mượn trả</a>
         </li>
-        <li>
-          <a th:href="@{/QLPhieuNhap}" target="content-frame"><img th:src="@{/imgs/icons8-list-63.png}" alt="">Phiếu nhập</a>
+        <li th:if="${session.maquyen== 1 || session.maquyen == 5}">
+          <a th:href="@{/QLPhieuNhap}"  target="content-frame"><img th:src="@{/imgs/icons8-list-63.png}" alt="">Phiếu nhập</a>
         </li>
-        <li>
-          <a th:href="@{/QLNcc}" target="content-frame"><img th:src="@{/imgs/icons8-factory-64.png}" alt="">Nhà cung cấp</a>
+        <li th:if="${session.maquyen== 1 || session.maquyen == 6}">
+          <a th:href="@{/QLNcc}"  target="content-frame"><img th:src="@{/imgs/icons8-factory-64.png}" alt="">Nhà cung cấp</a>
         </li>
-        <li>
-          <a th:href="@{/QLTheLoai}" target="content-frame"><img th:src="@{/imgs/icons8-list-64.png}" alt="">Thể loại</a>
+        <li th:if="${session.maquyen== 1 || session.maquyen == 3}">
+          <a th:href="@{/QLTheLoai}"  target="content-frame"><img th:src="@{/imgs/icons8-list-64.png}" alt="">Thể loại</a>
         </li>
-        <li>
-          <a th:href="@{/QLSach}" target="content-frame"><img th:src="@{/imgs/icons8-user-50.png}" alt="">Tài khoản</a>
+        <li th:if="${session.maquyen== 1 || session.maquyen == 7}">
+          <a th:href="@{/QLTaiKhoan}"  target="content-frame"><img th:src="@{/imgs/icons8-user-50.png}" alt="">Tài khoản</a>
         </li>
-        <li>
-          <a th:href="@{/QLPhieuPhat}" target="content-frame"><img th:src="@{/imgs/icons8-event-declined-64.png}" alt="">Vi Phạm</a>
+        <li th:if="${session.maquyen== 1 || session.maquyen == 8}">
+          <a th:href="@{/QLPhieuPhat}"  target="content-frame"><img th:src="@{/imgs/icons8-event-declined-64.png}" alt="">Vi Phạm</a>
         </li>
         <li>
           <span style="color: white;margin-left: 20px;font-size: 16px;">Xin chào <span class="username" th:text="${session.username}"></span> !</span>

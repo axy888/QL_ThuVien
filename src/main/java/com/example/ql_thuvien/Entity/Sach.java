@@ -15,8 +15,13 @@ public class Sach {
             strategy = GenerationType.IDENTITY
     )
     private int ma_sach;
-    private int ma_loai;
-    private int ma_ncc;
+    @ManyToOne
+    @JoinColumn(name = "ma_loai", referencedColumnName = "ma_loai")
+    private TheLoai theLoai;
+
+    @ManyToOne
+    @JoinColumn(name = "ma_ncc", referencedColumnName = "ma_ncc")
+    private NhaCungCap nhaCungCap;
     private String ten_sach;
     private String tac_gia;
     private String mo_ta;
@@ -26,9 +31,9 @@ public class Sach {
     private int gia;
     private String hinh;
 
-    public Sach(int ma_loai, int ma_ncc,String ten_sach, String tac_gia, String mo_ta,String NXB, String ngay_xuat_ban, int so_luong,int gia,String hinh) {
-        this.ma_loai = ma_loai;
-        this.ma_ncc=ma_ncc;
+    public Sach(TheLoai theLoai, NhaCungCap nhaCungCap,String ten_sach, String tac_gia, String mo_ta,String NXB, String ngay_xuat_ban, int so_luong,int gia,String hinh) {
+        this.theLoai = theLoai;
+        this.nhaCungCap = nhaCungCap;
         this.ten_sach = ten_sach;
         this.tac_gia = tac_gia;
         this.mo_ta=mo_ta;
@@ -51,13 +56,6 @@ public class Sach {
         this.ma_sach = ma_sach;
     }
 
-    public int getMa_loai() {
-        return ma_loai;
-    }
-
-    public void setMa_loai(int ma_loai) {
-        this.ma_loai = ma_loai;
-    }
 
     public String getTen_sach() {
         return ten_sach;
@@ -123,11 +121,19 @@ public class Sach {
         this.gia = gia;
     }
 
-    public int getMa_ncc() {
-        return ma_ncc;
+    public TheLoai getTheLoai() {
+        return theLoai;
     }
 
-    public void setMa_ncc(int ma_ncc) {
-        this.ma_ncc = ma_ncc;
+    public void setTheLoai(TheLoai theLoai) {
+        this.theLoai = theLoai;
+    }
+
+    public NhaCungCap getNhaCungCap() {
+        return nhaCungCap;
+    }
+
+    public void setNhaCungCap(NhaCungCap nhaCungCap) {
+        this.nhaCungCap = nhaCungCap;
     }
 }

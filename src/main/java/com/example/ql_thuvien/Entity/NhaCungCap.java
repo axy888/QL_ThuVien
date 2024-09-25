@@ -22,6 +22,9 @@ public class NhaCungCap {
     private String sdt;
     private String email;
 
+    @OneToMany(mappedBy = "nhaCungCap", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Sach> saches;
+
     @OneToMany(mappedBy = "ncc", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PhieuNhap> Phieunhap;
 
@@ -91,5 +94,13 @@ public class NhaCungCap {
     public void removeCT_PhieuNhap(PhieuNhap pn) {
         Phieunhap.remove(pn);
         pn.setNcc(this);
+    }
+
+    public List<Sach> getSaches() {
+        return saches;
+    }
+
+    public void setSaches(List<Sach> saches) {
+        this.saches = saches;
     }
 }

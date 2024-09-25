@@ -14,7 +14,9 @@ public class TaiKhoan {
             strategy = GenerationType.IDENTITY
     )
     private int ma_taikhoan;
-    private int ma_quyen;
+    @ManyToOne
+    @JoinColumn(name = "ma_quyen", referencedColumnName = "ma_quyen")
+    private Quyen quyen;
     private String email;
     private String password;
     private String hoten;
@@ -24,9 +26,9 @@ public class TaiKhoan {
     private int trang_thai;
     private String avatar;
     public TaiKhoan(){}
-    public TaiKhoan(int ma_quyen,String email, String password,String hoten, String sdt, String diachi,String ngay_tao,int trang_thai,String avatar)
+    public TaiKhoan(Quyen quyen,String email, String password,String hoten, String sdt, String diachi,String ngay_tao,int trang_thai,String avatar)
     {
-        this.ma_quyen=ma_quyen;
+        this.quyen =quyen ;
         this.email=email;
         this.password=password;
         this.hoten=hoten;
@@ -85,14 +87,6 @@ public class TaiKhoan {
         this.diachi = diachi;
     }
 
-    public int getMa_quyen() {
-        return ma_quyen;
-    }
-
-    public void setMa_quyen(int ma_quyen) {
-        this.ma_quyen = ma_quyen;
-    }
-
     public int getTrang_thai() {
         return trang_thai;
     }
@@ -115,5 +109,13 @@ public class TaiKhoan {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public Quyen getQuyen() {
+        return quyen;
+    }
+
+    public void setQuyen(Quyen quyen) {
+        this.quyen = quyen;
     }
 }

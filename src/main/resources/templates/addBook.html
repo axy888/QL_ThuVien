@@ -13,7 +13,7 @@
   <form th:object="${sach}" th:action="@{/saveBook}" method="POST">
     <div class="mb-3">
       <label class="form-label">Chọn mã loại:</label>
-      <select class="form-control" th:field="*{ma_loai}" required>
+      <select class="form-control" th:field="*{theLoai}" required>
         <option th:each="theloai : ${theloaiList}"
                 th:value="${theloai.ma_loai}"
                 th:text="${theloai.ten_loai}">
@@ -22,7 +22,7 @@
     </div>
     <div class="mb-3">
       <label class="form-label">Chọn nhà cung cấp:</label>
-      <select class="form-control" th:field="*{ma_ncc}" required>
+      <select class="form-control" th:field="*{nhaCungCap}" required>
         <option th:each="ncc : ${listNcc}"
                 th:value="${ncc.ma_ncc}"
                 th:text="${ncc.ten_ncc}">

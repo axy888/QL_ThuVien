@@ -1,6 +1,9 @@
 package com.example.ql_thuvien.Controller;
 
+import com.example.ql_thuvien.Entity.NhaCungCap;
+import com.example.ql_thuvien.Entity.Quyen;
 import com.example.ql_thuvien.Entity.TaiKhoan;
+import com.example.ql_thuvien.Repositories.QuyenReposiroty;
 import com.example.ql_thuvien.Repositories.TaiKhoanReposiroty;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,6 +32,8 @@ public class LoginController {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     @Autowired
     private TaiKhoanReposiroty taikhoanRe;
+    @Autowired
+    private QuyenReposiroty quyenRe;
     @RequestMapping("/login")
     public String toLogin(){return "login";}
 
@@ -99,7 +105,13 @@ public class LoginController {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String hashedPassword = passwordEncoder.encode(matkhau);
             String ngay_tao=currentDate.format(formatter);
-            TaiKhoan tk=new TaiKhoan(2,taikhoan,hashedPassword,name,sdt,diachi,ngay_tao,1,hinh);
+            Optional<Quyen> optionalQuyen = quyenRe.findById((long)2);
+            Quyen quyen = new Quyen();
+            if(optionalQuyen.isPresent())
+            {
+                quyen=optionalQuyen.get();
+            }
+            TaiKhoan tk=new TaiKhoan(quyen,taikhoan,hashedPassword,name,sdt,diachi,ngay_tao,1,hinh);
             taikhoanRe.save(tk);
             m.addAttribute("message","Đăng ký thành công!!");
             m.addAttribute("type", "success");
@@ -128,14 +140,15 @@ public class LoginController {
             {
                 if(tk.getEmail().equals(taikhoan) && passwordEncoder.matches(matkhau, tk.getPassword()))
                 {
-                    if(tk.getMa_quyen()==1)
+                    if(tk.getQuyen().getMa_quyen()!=2)
                     {
                         session.setAttribute("username", tk.getHoten());
                         session.setAttribute("ma_taikhoan", tk.getMa_taikhoan());
+                        session.setAttribute("maquyen", tk.getQuyen().getMa_quyen());
                         m.addAttribute("type", "success");
                         return "admin";
                     }
-                    if(tk.getMa_quyen()==2)
+                    if(tk.getQuyen().getMa_quyen()==2)
                     {
                         session.setAttribute("username", tk.getHoten());
                         session.setAttribute("ma_taikhoan", tk.getMa_taikhoan());

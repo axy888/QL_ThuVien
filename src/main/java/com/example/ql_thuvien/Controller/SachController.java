@@ -98,8 +98,8 @@ public class SachController {
     @PostMapping("/saveBook")
     public String save(@ModelAttribute("sach") Sach sa, Model model) {
         // Process the form data and save to the database
-        int ma_loai = sa.getMa_loai();
-        int ma_ncc=sa.getMa_ncc();
+        TheLoai theloia = sa.getTheLoai();
+        NhaCungCap ncc=sa.getNhaCungCap();
         String ten_sach = sa.getTen_sach();
         String tac_gia = sa.getTac_gia();
         String mo_ta = sa.getMo_ta();
@@ -109,7 +109,7 @@ public class SachController {
         String hinh = sa.getHinh();
 
         // Create a new ThanhVien object with the data
-        Sach saNew = new Sach(ma_loai, ma_ncc,ten_sach, tac_gia, mo_ta, nxb, ngay_xuat_ban,0,gia,hinh);
+        Sach saNew = new Sach(theloia, ncc,ten_sach, tac_gia, mo_ta, nxb, ngay_xuat_ban,0,gia,hinh);
         sachRe.save(saNew);
 
         // Retrieve all ThanhVien objects and add them to the model
@@ -137,7 +137,9 @@ public class SachController {
             Sach sa = optionalSa.get();
             // Update properties of the existing ThanhVien object
             sa.setMo_ta(saNew.getMo_ta());
-            sa.setHinh(saNew.getHinh());
+            if (saNew.getHinh() != null && !saNew.getHinh().isEmpty()) {
+                sa.setHinh(saNew.getHinh());
+            }
             // Save the updated ThanhVien object back to the database
             sachRe.save(sa);
         }
@@ -188,13 +190,13 @@ public class SachController {
                 case "ma_loai":
                     {
                         int ma_loai = Integer.parseInt(searchText);
-                        matches = sa.getMa_loai() == ma_loai;
+                        matches = sa.getTheLoai().getMa_loai() == ma_loai;
                         break;
                     }
                 case "ma_ncc":
                 {
                     int ma_ncc = Integer.parseInt(searchText);
-                    matches = sa.getMa_ncc() == ma_ncc;
+                    matches = sa.getNhaCungCap().getMa_ncc() == ma_ncc;
                     break;
                 }
                 case "ten_sach":
@@ -274,7 +276,7 @@ public class SachController {
                 case "ma_loai":
                 {
                     int ma_loai = Integer.parseInt(searchText);
-                    matches = sa.getMa_loai() == ma_loai;
+                    matches = sa.getTheLoai().getMa_loai() == ma_loai;
                     break;
                 }
                 case "ten_sach":
@@ -391,7 +393,7 @@ public class SachController {
         {
             for(Sach sa: listMuonSach)
             {
-                if(sa.getMa_loai()==ma_loai)listFound.add(sa);
+                if(sa.getTheLoai().getMa_loai()==ma_loai)listFound.add(sa);
             }
             model.addAttribute("data",listFound);
             model.addAttribute("listTheLoai",listTheLoai);
@@ -456,7 +458,7 @@ public class SachController {
         ArrayList<TheLoai> tempTheLoai=(ArrayList<TheLoai>)listTheLoai;
         TheLoai theloai=new TheLoai();
         for(TheLoai tl :tempTheLoai)
-            if(tl.getMa_loai()==sa.getMa_loai())theloai=tl;
+            if(tl.getMa_loai()==sa.getTheLoai().getMa_loai())theloai=tl;
         model.addAttribute("sach", sa);
         model.addAttribute("theloai",theloai);
         return "CTSachView";

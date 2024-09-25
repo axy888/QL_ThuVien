@@ -2,6 +2,8 @@ package com.example.ql_thuvien.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity(
         name = "TheLoai"
 )
@@ -15,6 +17,8 @@ public class TheLoai {
     )
     private int ma_loai;
     private String ten_loai;
+    @OneToMany(mappedBy = "theLoai", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Sach> saches;
 
     public TheLoai(String tenLoai) {
         ten_loai = tenLoai;
@@ -38,5 +42,13 @@ public class TheLoai {
 
     public void setTen_loai(String ten_loai) {
         this.ten_loai = ten_loai;
+    }
+
+    public List<Sach> getSaches() {
+        return saches;
+    }
+
+    public void setSaches(List<Sach> saches) {
+        this.saches = saches;
     }
 }

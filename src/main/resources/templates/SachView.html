@@ -80,8 +80,8 @@
     </thead>
     <tr th:each ="row : ${data}">
       <td th:utext="${row.ma_sach}">...</td>
-      <td th:utext="${row.ma_loai}">...</td>
-      <td th:utext="${row.ma_ncc}">...</td>
+      <td th:utext="${row.theLoai.ma_loai}">...</td>
+      <td th:utext="${row.nhaCungCap.ma_ncc}">...</td>
       <td th:utext="${row.ten_sach}">...</td>
       <td th:utext="${row.tac_gia}">...</td>
       <td th:utext="${row.NXB}">...</td>
