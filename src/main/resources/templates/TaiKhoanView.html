@@ -17,20 +17,24 @@
 
         <select name="searchBy" id="searchBy">
             <option th:value="all">Tất cả</option>
-            <option th:value="ma_ncc">Mã quyền</option>
-            <option th:value="ten_ncc">Tên quyền</option>
+            <option th:value="ma_tk">Mã tài khoản</option>
+            <option th:value="ten_quyen">Tên quyền</option>
             <option th:value="email">Email</option>
-            <option th:value="email">Password</option>
-            <option th:value="sdt">Họ tên</option>
+            <option th:value="hoten">Họ tên</option>
             <option th:value="sdt">SĐT</option>
-            <option th:value="email">Đia chỉ</option>
-            <option th:value="sdt">Ngày tạo</option>
-            <option th:value="sdt">Trạng thái</option>
+            <option th:value="diachi">Đia chỉ</option>
+            <option th:value="ngay_tao">Ngày tạo</option>
+            <option th:value="trang_thai">Trạng thái</option>
         </select>
         <div>
             <input type="text" placeholder="Tìm kiếm ở đây.." name="searchText" id="searchText">
-            <input type="submit" value="Search">
+            Từ ngày: <input type="date" name="fromDate">
+            Đến ngày: <input type="date" name="toDate">
+            <br>
+            <input type="radio" name="status" value="1">Còn hoạt động
+            <input type="radio" name="status" value="2">Đã khóa
         </div>
+        <input type="submit" value="Search">
     </form>
 
     <br>
@@ -41,7 +45,7 @@
         <thead class="table-dark">
         <tr>
             <th>Mã tài khoản</th>
-            <th>Tên quyền
+            <th>Quyền
                 <a th:href="@{/QLTaiKhoan/sort(sortField='ten_quyen', sortDir=${sortField == 'ten_quyen' && sortDir == 'asc' ? 'desc' : 'asc'})}">
                     <img th:src="@{${sortField == 'ten_quyen' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
                 </a>
@@ -52,7 +56,6 @@
             <th>Số điện thoại</th>
             <th>Địa chỉ</th>
             <th>Ngày tạo</th>
-            <th>Quyền</th>
             <th>Trạng thái</th>
             <th>Chức năng</th>
 
@@ -67,7 +70,6 @@
             <td th:utext="${row.sdt}">...</td>
             <td th:utext="${row.diachi}">...</td>
             <td th:utext="${row.ngay_tao}">...</td>
-            <td th:utext="${row.quyen.ten_quyen}">...</td>
             <td th:utext="${row.trang_thai}">...</td>
             <td>
                 <div class="btn-group d-flex justify-content-center">

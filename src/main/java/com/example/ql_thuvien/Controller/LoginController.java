@@ -140,6 +140,12 @@ public class LoginController {
             {
                 if(tk.getEmail().equals(taikhoan) && passwordEncoder.matches(matkhau, tk.getPassword()))
                 {
+                    if(tk.getTrang_thai() ==2)
+                    {
+                        m.addAttribute("message","Tài khoản hiện đang bị khóa!!");
+                        m.addAttribute("type", "error");
+                        return "login";
+                    }
                     if(tk.getQuyen().getMa_quyen()!=2)
                     {
                         session.setAttribute("username", tk.getHoten());
