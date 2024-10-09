@@ -54,6 +54,21 @@ iframe {
     height: 50px;
 }
 
+.rules-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.rules-card {
+    width: 100%;
+    max-width: 800px;
+}
+
+.rules-card .card-body {
+    background-color: #f0f4f7; /* Màu nền nhẹ cho nội dung */
+}
 li a:hover:not(.active) {
     background-color: #4c781e;
 }

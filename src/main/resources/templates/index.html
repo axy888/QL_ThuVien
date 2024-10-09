@@ -10,7 +10,7 @@
 <body>
 <div class="menu_user">
     <ul>
-        <li><a class="logo" th:href="@{/}"><img th:src="@{/imgs/logo.jpg}" alt=""></a></li>
+        <li><a class="logo" th:href="@{/rules}" target="content-frame"><img th:src="@{/imgs/logo.jpg}" alt=""></a></li>
         <li><a th:href="@{/QLMuonSach}" target="content-frame">Mượn sách</a></li>
 
         <li th:if="${session.username}" style="float:right">
@@ -26,8 +26,10 @@
     </ul>
 </div>
 
+
+
 <main class="main-content" th:fragment="main-content">
-    <iframe name="content-frame" src="" width="100%">
+    <iframe name="content-frame" th:src="@{/rules}" width="100%">
         Trình duyệt của bạn không hỗ trợ iframe.
     </iframe>
 </main>

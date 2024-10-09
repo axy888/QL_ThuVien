@@ -4,6 +4,7 @@ import com.example.ql_thuvien.Entity.Sach;
 import com.example.ql_thuvien.Repositories.SachRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,5 +22,9 @@ public class HomeController {
     )
     public String toHome() {
         return "index";
+    }
+    @GetMapping("/rules")
+    public String showRules() {
+        return "rules";  // Tên của file Thymeleaf (rules.html)
     }
 }

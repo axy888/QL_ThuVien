@@ -45,7 +45,7 @@
     <thead class="table-dark">
     <tr>
       <th>Mã sách</th>
-      <th>Mã loại</th>
+      <th>Thể loại</th>
       <th>Tên sách
         <a th:href="@{/QLMuonSach/sort(sortField='ten_sach', sortDir=${sortField == 'ten_sach' && sortDir == 'asc' ? 'desc' : 'asc'})}">
           <img th:src="@{${sortField == 'ten_sach' ? (sortDir == 'asc' ? '/imgs/mui1.png' : '/imgs/mui2.png') : '/imgs/mui2.png'}}" style="width: 20px; height: 20px;">
@@ -74,7 +74,7 @@
     </thead>
     <tr th:each ="row : ${data}">
       <td th:utext="${row.ma_sach}">...</td>
-      <td th:utext="${row.ma_loai}">...</td>
+      <td th:utext="${row.theLoai.ten_loai}">...</td>
       <td th:utext="${row.ten_sach}">...</td>
       <td th:utext="${row.tac_gia}">...</td>
       <td th:utext="${row.NXB}">...</td>
