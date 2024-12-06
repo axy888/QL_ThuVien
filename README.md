@@ -21,6 +21,10 @@ An online library management system allows users to search for and borrow books 
     * Approve borrow or return requests.
     * View borrowing/return history.
 
+## Technology
+* FE: Bootstrap, Thymeleaf, Ajax
+* BE: Srpingboot, JavaScript, Spring Data JPA, MySQL
+
 ## Getting Started
 
 ### Installing
