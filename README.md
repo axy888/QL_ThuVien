@@ -29,7 +29,7 @@ An online library management system allows users to search for and borrow books 
 
 ### Installing
 
-Install the sql file  ```thuvien.sql``` in the folder ```database``` and add it to your database.
+Install the sql file  ```thuvien.sql``` and add it to your database.
 Ensure the database is properly connected to the application.
 To access the website, please visit the following link:
 ```
