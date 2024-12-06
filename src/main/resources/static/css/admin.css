@@ -8,7 +8,7 @@ body {
 {
     display: flex;
     flex-direction: row;
-    height: 641px;
+    height: 100vh;
 }
 
 .menu_admin .logo

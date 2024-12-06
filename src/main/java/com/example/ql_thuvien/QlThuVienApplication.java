@@ -8,6 +8,7 @@ public class QlThuVienApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(QlThuVienApplication.class, args);
+		System.out.println("http://localhost:8080/");
 	}
 
 }

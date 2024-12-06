@@ -17,3 +17,9 @@
 //các trạng thái phiếu phạt
 1.chưa xử lý
 2.đã xử lý
+
+//các tài khoản
+admin: admin admin
+user:
+- dat@gmail.com abc456
+- dat2@gmail.com abc123
