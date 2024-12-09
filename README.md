@@ -1,6 +1,6 @@
 # Web Quan Ly Thu Vien
 
-An online library management system allows users to search for and borrow books while administrators can manage the library. The main features are divided into roles: Admin and User.
+An online library management system allows users to search for and borrow books while administrators can manage the library.
 
 ## Description
 
@@ -20,9 +20,9 @@ An online library management system allows users to search for and borrow books 
   * Monitor and manage borrowing/returning activities:
     * Approve borrow or return requests.
     * View borrowing/return history.
-
+* Other Account: They can manage functions corresponding to their roles, for example, a warehouse manager can handle warehouse receipt and suppliers. 
 ## Technology
-* FE: Bootstrap, Thymeleaf, Ajax
+* FE: Bootstrap, Thymeleaf
 * BE: Srpingboot, JavaScript, Spring Data JPA, MySQL
 
 ## Getting Started
