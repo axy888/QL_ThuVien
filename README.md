@@ -28,9 +28,11 @@ An online library management system allows users to search for and borrow books 
 ## Getting Started
 
 ### Installing
+
 First, clone the repository to your local machine using the following command:
 ```
 git clone https://github.com/axy888/QL_ThuVien.git
+cd QL_ThuVien
 ```
 Install the sql file  ```thuvien.sql``` and add it to your database.
 Ensure the database is properly connected to the application.
